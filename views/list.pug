@@ -1,0 +1,7 @@
+extends layout.pug
+
+block content
+  ul
+  each item in list
+    li
+      a(href=item.link)= item.name
