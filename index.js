@@ -22,21 +22,21 @@ app.use(function (req, res) {
       return;
     }
 
-    if(stdout.indexOf('Keys') !== 0){
-
-       return res.send(stdout);
+    if (stdout.indexOf('Keys') !== 0) {
+        res.render('entries', { entries: stdout });
+        return;
     }
 
     let list = stdout.split('\n')
         .filter((key) => {
             return key;
         })
-        .map((key)=>{
+        .map((key)=> {
             return { name: key, link: key };
         });
 
     list.shift();
-    res.render('list', {list:list});
+    res.render('list', { list: list });
   });
 
 })
