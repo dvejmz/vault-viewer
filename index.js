@@ -23,7 +23,11 @@ app.use(function (req, res) {
     }
 
     if (stdout.indexOf('Keys') !== 0) {
-        res.render('entries', { entries: stdout });
+        // Render secrets view
+        res.render('entries', {
+            entries: stdout,
+            backLink: req.get('Referrer')
+        });
         return;
     }
 
@@ -35,7 +39,25 @@ app.use(function (req, res) {
             return { name: key, link: key };
         });
 
-    list.shift();
+    // Remove table headers
+    list = list.slice(2);
+    const originalUrl = req.url.split('/').filter(el => { return el; });
+
+    if (originalUrl) {
+        let backLink = '';
+        if (originalUrl.length > 1) {
+            backLink = originalUrl;
+            backLink.pop();
+            backLink = backLink.join('/');
+        }
+
+        list.unshift({
+            name: '../',
+            link: [req.baseUrl, backLink].join('/')
+        });
+    }
+
+    // Render directories view
     res.render('list', { list: list });
   });
 
