@@ -1,59 +1,28 @@
 'use strict';
 
-const express = require('express')
-const app = express()
-const pug = require('pug');
-const vault = require('./src/vault')();
+const vaultserver = require('./src/server');
 
-app.set('view engine', 'pug');
+const DEFAULT_SERVER_PORT = 3001;
 
-app.use(function (req, res) {
+// Load arguments passed from CLI
+const argvConfig = parseArgv();
 
-  console.log(req.path);
+const VaultServer = vaultserver(argvConfig.port);
+VaultServer.start();
 
-  vault.get(req.path, (err, result) => {
-    if (err) {
-      console.error(err);
-      res.redirect('back');
-      return;
+function parseArgv() {
+  let port;
+  let portOpt = process.argv.find(opt => opt.lastIndexOf('-p=') != -1);
+
+  if (portOpt) {
+    const optValue = /-\w=(\d+)/.exec(portOpt);
+    // Make sure we've captured the value of the opt
+    if (optValue && optValue.length === 2) {
+      port = optValue[1];
     }
+  }
 
-    if (result.type === 'secrets') {
-      res.render('entries', {
-        entries: result.content,
-        backLink: req.get('Referrer')
-      });
-
-      return;
-    }
-
-    if (result.type === 'directory') {
-      let list = result.content;
-      // Remove table headers
-      list = list.slice(2);
-      const originalUrl = req.url.split('/').filter(el => { return el; });
-
-      if (originalUrl) {
-        let backLink = '';
-        if (originalUrl.length > 1) {
-          backLink = originalUrl;
-          backLink.pop();
-          backLink = backLink.join('/');
-        }
-
-        list.unshift({
-          name: '../',
-          link: [req.baseUrl, backLink].join('/')
-        });
-      }
-
-      // Render directories view
-      res.render('list', { list: list });
-      return;
-    }
-  });
-});
-
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
+  return {
+      port: port || DEFAULT_SERVER_PORT
+  };
+}
