@@ -15,6 +15,14 @@ module.exports = (port) => {
   function start() {
     app.listen(port, function () {
       console.log(`Example app listening on port ${port}!`);
+
+        if(process.platform === 'darwin'){
+
+            const { exec } = require('child_process');
+
+            exec(`open http://localhost:${port}`);
+            
+        }
     });
   }
 
