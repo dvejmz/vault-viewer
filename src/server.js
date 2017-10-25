@@ -14,15 +14,22 @@ module.exports = (port) => {
 
   function start() {
     app.listen(port, function () {
-      console.log(`Example app listening on port ${port}!`);
+      console.log(`Vault Viewer listening on port ${port}!`);
 
-        if(process.platform === 'darwin'){
-
-            const { exec } = require('child_process');
-
+      if (process.platform) {
+        const { exec } = require('child_process');
+        switch (process.platform) {
+          case 'darwin':
             exec(`open http://localhost:${port}`);
-            
+            break;
+          case 'linux':
+            exec(`xdg-open http://localhost:${port}`);
+            break;
+          default:
+            console.log(`Cannot launch web view: unrecognised platform. Visit http://localhost:${port}/ in your browser to use Vault Viewer.`);
+            break;
         }
+      }
     });
   }
 
