@@ -35,12 +35,20 @@ module.exports = (port) => {
 
   function init(port) {
     app.set('view engine', 'pug');
+
+    app.get('/favicon.ico', function(req, res){
+      res.status(404).end();
+    });
+
     app.use(function (req, res) {
 
       console.log(req.path);
 
       vault.get(req.path, (err, result) => {
+
         if (err) {
+
+
           console.error(err);
           res.redirect('back');
           return;
