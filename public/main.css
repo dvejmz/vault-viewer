@@ -34,3 +34,23 @@ body {
     -moz-box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
     box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
 }
+
+.button {
+    background-color: #6200ee;
+    color: #fff;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.back-entry {
+    background-color: #6200ee;
+}
+
+.back-entry a {
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    text-align: center;
+}

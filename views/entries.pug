@@ -1,5 +1,6 @@
 extends layout.pug
 
 block content
-    a(href=backLink)= "Go Back"
+    a(href=backLink)
+        button(type="button" class="button")= "GO BACK"
     pre #{entries}

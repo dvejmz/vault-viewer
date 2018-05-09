@@ -79,8 +79,9 @@ module.exports = (port) => {
             }
 
             list.unshift({
-              name: '../',
-              link: [req.baseUrl, backLink].join('/')
+              name: 'BACK',
+              link: [req.baseUrl, backLink].join('/'),
+              class: 'back-entry'
             });
           }
 
