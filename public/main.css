@@ -1,3 +1,7 @@
+body {
+    background: url('http://api.thumbr.it/whitenoise-361x370.png?background=fafafaff&noise=ababab&density=15&opacity=15');
+}
+
 .content {
     margin: 5rem auto 0 auto;
     display: table;
@@ -5,4 +9,28 @@
 
 .content > .content-body {
     display: table-cell;
+}
+
+.entry {
+    list-style-type: none;
+}
+
+.entry a {
+    text-decoration: none;
+    color: #000;
+    font-family: 'IBM Plex Serif', serif;
+}
+
+.card {
+    background-color: #fff;
+    padding: 10px 50px;
+    border-top: solid 1px #f4f4f4;
+    margin: 5px 0 0 0;
+    border-left: solid 1px lightgrey;
+    border-right: solid 1px lightgrey;
+    border-bottom: solid 1px lightgrey;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
+    box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
 }
