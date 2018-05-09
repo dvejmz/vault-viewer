@@ -2,6 +2,10 @@ body {
     background: url('http://api.thumbr.it/whitenoise-361x370.png?background=fafafaff&noise=ababab&density=15&opacity=15');
 }
 
+.margin-bottom {
+    margin-bottom: 5px;
+}
+
 .content {
     margin: 5rem auto 0 auto;
     display: table;
