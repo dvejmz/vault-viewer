@@ -40,6 +40,7 @@ module.exports = (port) => {
       res.status(404).end();
     });
 
+    app.use(express.static('public'));
     app.use(function (req, res) {
 
       console.log(req.path);
