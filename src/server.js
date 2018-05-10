@@ -40,6 +40,7 @@ module.exports = (port) => {
       res.status(404).end();
     });
 
+    app.use(express.static('public'));
     app.use(function (req, res) {
 
       console.log(req.path);
@@ -78,8 +79,9 @@ module.exports = (port) => {
             }
 
             list.unshift({
-              name: '../',
-              link: [req.baseUrl, backLink].join('/')
+              name: 'BACK',
+              link: [req.baseUrl, backLink].join('/'),
+              class: 'back-entry'
             });
           }
 
