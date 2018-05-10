@@ -3,7 +3,7 @@ extends layout.pug
 block content
   ul(class='entries')
   each item in list
-    li(class='card entry ' + (item.class || ''))
+    li(class='card-islet margin-top entry ' + (item.class || ''))
       a(href=item.link)
         div
           = item.name

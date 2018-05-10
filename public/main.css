@@ -1,12 +1,31 @@
+a {
+    text-decoration: none;
+    color: #000;
+}
+
 body {
     background: url('http://api.thumbr.it/whitenoise-361x370.png?background=fafafaff&noise=ababab&density=15&opacity=15');
+    font-family: 'IBM Plex Serif', serif;
+}
+
+.margin-top {
+    margin-top: 5px;
 }
 
 .margin-bottom {
     margin-bottom: 5px;
 }
 
+.margin-bottom-large {
+    margin-bottom: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
+
 .content {
+    max-width: 80%;
     margin: 5rem auto 0 auto;
     display: table;
 }
@@ -20,16 +39,16 @@ body {
 }
 
 .entry a {
-    text-decoration: none;
-    color: #000;
     font-family: 'IBM Plex Serif', serif;
+}
+
+.secret {
+    font-family: 'Inconsolata', monospace;
 }
 
 .card {
     background-color: #fff;
     padding: 10px 50px;
-    border-top: solid 1px #f4f4f4;
-    margin: 5px 0 0 0;
     border-left: solid 1px lightgrey;
     border-right: solid 1px lightgrey;
     border-bottom: solid 1px lightgrey;
@@ -39,8 +58,29 @@ body {
     box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
 }
 
-.button {
+.card-islet {
+    background-color: #fff;
+    padding: 10px 50px;
+    border-top: solid 1px #f4f4f4;
+    border-left: solid 1px lightgrey;
+    border-right: solid 1px lightgrey;
+    border-bottom: solid 1px lightgrey;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
+    box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
+}
+
+.card-heading {
     background-color: #6200ee;
+    color: #fff;
+    padding: 10px 25px;
+    font-weight: 600;
+    cursor: default;
+}
+
+.button {
+    background-color: #3700b3;
     color: #fff;
     padding: 10px;
     font-family: 'Roboto', sans-serif;
@@ -49,11 +89,11 @@ body {
     cursor: pointer;
 }
 
-.back-entry {
-    background-color: #6200ee;
+.back-button {
+    background-color: #3700b3;
 }
 
-.back-entry a {
+.back-button a {
     font-family: 'Roboto', sans-serif;
     color: #fff;
     text-align: center;

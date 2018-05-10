@@ -81,7 +81,7 @@ module.exports = (port) => {
             list.unshift({
               name: 'BACK',
               link: [req.baseUrl, backLink].join('/'),
-              class: 'back-entry'
+              class: 'back-button'
             });
           }
 
