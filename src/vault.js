@@ -6,7 +6,7 @@ module.exports = () => {
   const exec = cp.exec;
   const execSync = cp.execSync;
   const env_variables = 'PATH='+process.env.PATH;
-  const { PATH, VAULT_ADDR, VAULT_CACERT } = process.env;
+  const { PATH, VAULT_ADDR, VAULT_CACERT, HOME } = process.env;
 
   return {
     get
@@ -15,6 +15,7 @@ module.exports = () => {
   function runCommandSync(cmd) {
     return execSync(cmd, {
       env: {
+        HOME,
         PATH,
         VAULT_ADDR,
         VAULT_CACERT
