@@ -42,16 +42,11 @@ module.exports = (port) => {
 
     app.use(express.static('public'));
     app.use(function (req, res) {
-
       console.log(req.path);
 
       vault.get(req.path, (err, result) => {
-
         if (err) {
-
-
-          console.error(err);
-          res.redirect('back');
+          console.error(err.toString());
           return;
         }
 
@@ -67,7 +62,6 @@ module.exports = (port) => {
         if (result.type === 'directory') {
           let list = result.content;
           // Remove table headers
-          list = list.slice(2);
           const originalUrl = req.url.split('/').filter(el => { return el; });
 
           if (originalUrl) {

@@ -24,8 +24,12 @@ module.exports = () => {
     });
   }
 
+  function trimPath(path) {
+    return path.replace(/^\/+/, '');
+  }
+
   function read(path) {
-    const cmd = `vault read -format json secret/${path.replace(/^\/+/, '')}`; 
+    const cmd = `vault read -format json secret/${trimPath(path)}`; 
     let stdout = null;
 
     try {
@@ -39,7 +43,7 @@ module.exports = () => {
   }
 
   function list(path) {
-    const cmd = `vault list secret/${path}`; 
+    const cmd = `vault list -format json secret/${trimPath(path)}`; 
     let stdout = null;
 
     try {
@@ -48,17 +52,14 @@ module.exports = () => {
         return null;
     }
 
-    return stdout;
+    return JSON.parse(stdout);
   }
 
   function get(path, cb) {
     let listOutput = list(path);
 
     if (listOutput) {
-      const list = listOutput.split('\n')
-        .filter((key) => {
-          return key;
-        })
+      const list = listOutput
         .map((key)=> {
           return { name: key, link: key };
         });
