@@ -1,10 +1,11 @@
 extends layout.pug
 
 block content
-    a(href=backLink)
-        button(type="button" class="button margin-bottom-large full-width")= "BACK"
-    each value, key in entries
-        div(class='card-heading')
-            = key
-        div(class='card secret margin-bottom')
-            = value
+  div(class='row')
+    +breadcrumb(breadcrumb)
+  each value, key in entries
+    div(class='row')
+      div(class='card-heading')
+          = key
+      div(class='card round-borders-bottom secret margin-bottom')
+          = value

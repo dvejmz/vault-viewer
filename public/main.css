@@ -3,6 +3,20 @@ a {
     color: #000;
 }
 
+ul {
+    margin: 0;
+    list-style-type: none;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 0;
+}
+
+li {
+    list-style-type: none;
+}
+
 body {
     background: url('http://api.thumbr.it/whitenoise-361x370.png?background=fafafaff&noise=ababab&density=15&opacity=15');
     font-family: 'IBM Plex Serif', serif;
@@ -27,15 +41,15 @@ body {
 .content {
     max-width: 80%;
     margin: 5rem auto 0 auto;
-    display: table;
 }
 
-.content > .content-body {
-    display: table-cell;
+.row {
+    margin: 5px auto 0 auto;
+    width: 40%;
 }
 
 .entry {
-    list-style-type: none;
+    padding: 10px 10px 10px 30px;
 }
 
 .entry a {
@@ -52,7 +66,6 @@ body {
     border-left: solid 1px lightgrey;
     border-right: solid 1px lightgrey;
     border-bottom: solid 1px lightgrey;
-    border-radius: 5px;
     -webkit-box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
     -moz-box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
     box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
@@ -60,15 +73,21 @@ body {
 
 .card-islet {
     background-color: #fff;
-    padding: 10px 50px;
     border-top: solid 1px #f4f4f4;
     border-left: solid 1px lightgrey;
     border-right: solid 1px lightgrey;
     border-bottom: solid 1px lightgrey;
-    border-radius: 5px;
     -webkit-box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
     -moz-box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
     box-shadow: 0px 1px 1px 0px rgba(194,194,194,1);
+}
+
+.round-borders {
+    border-radius: 5px;
+}
+
+.round-borders-bottom {
+    border-radius: 0 0 5px 5px;
 }
 
 .card-heading {
@@ -79,22 +98,18 @@ body {
     cursor: default;
 }
 
-.button {
-    background-color: #3700b3;
-    color: #fff;
-    padding: 10px;
+.breadcrumb {
+    background-color: #6200ee;
     font-family: 'Roboto', sans-serif;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+    text-align: left;
+    padding: 10px 10px 10px 10px;
 }
 
-.back-button {
-    background-color: #3700b3;
+.crumb {
+    display: inline-block;
+    padding: 0 5px 0 0;
 }
 
-.back-button a {
-    font-family: 'Roboto', sans-serif;
+.crumb a {
     color: #fff;
-    text-align: center;
 }

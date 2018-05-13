@@ -1,0 +1,8 @@
+mixin breadcrumb(breadcrumb)
+  div(class='breadcrumb card-islet')
+    each crumb in breadcrumb
+      div(class='crumb')
+          if crumb.link === '/'
+            a(href=crumb.link)= crumb.name
+          else
+            a(href=crumb.link)= `> ${crumb.name}`
