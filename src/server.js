@@ -35,7 +35,6 @@ module.exports = (port) => {
 
   function getBreadcrumb(url) {
     const originalUrlPaths = url.split('/').filter(p => p && p !== '').map(p => p.replace(/\/+/, ''));
-    console.log(originalUrlPaths)
     const rootCrumb = {
       name: 'root',
       link: '/'
@@ -53,11 +52,10 @@ module.exports = (port) => {
 
       breadcrumb.push({
         name: crumb[crumb.length-1],
-        link: crumb.join('/').replace(/^\/{2}/, '/'),
+        link: crumb.join('/').replace(/^\/{2}/, '/') + '/',
       });
     }
 
-    console.log("bc: ", breadcrumb);
     return breadcrumb;
   }
 
@@ -91,23 +89,6 @@ module.exports = (port) => {
 
         if (result.type === 'directory') {
           let list = result.content;
-          // Remove table headers
-          const originalUrl = req.url.split('/').filter(el => { return el; });
-
-          if (originalUrl) {
-            let backLink = '';
-            if (originalUrl.length > 1) {
-              backLink = originalUrl;
-              backLink.pop();
-              backLink = backLink.join('/');
-            }
-
-            //list.unshift({
-            //  name: 'BACK',
-            //  link: [req.baseUrl, backLink].join('/'),
-            //  class: 'back-button'
-            //});
-          }
 
           // Render directories view
           res.render('list', {
