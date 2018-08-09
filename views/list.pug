@@ -1,9 +1,10 @@
 extends layout.pug
 
 block content
-  ul(class='entries')
+  div(class='row')
+    +breadcrumb(breadcrumb)
   each item in list
-    li(class='card-islet margin-top entry ' + (item.class || ''))
-      a(href=item.link)
-        div
+    a(href=item.link)
+      div(class='card-islet round-borders margin-top row ' + (item.class || ''))
+        div(class='entry')
           = item.name

@@ -33,6 +33,32 @@ module.exports = (port) => {
     });
   }
 
+  function getBreadcrumb(url) {
+    const originalUrlPaths = url.split('/').filter(p => p && p !== '').map(p => p.replace(/\/+/, ''));
+    const rootCrumb = {
+      name: 'root',
+      link: '/'
+    };
+    const breadcrumb = [rootCrumb];
+    if (!originalUrlPaths || originalUrlPaths.length === 0) {
+      return breadcrumb;
+    }
+
+    for (let i = 0; i < originalUrlPaths.length; i++) {
+      let crumb = ['/'];
+      for (let j = 0; j <= i; j++) {
+        crumb.push(originalUrlPaths[j]);
+      }
+
+      breadcrumb.push({
+        name: crumb[crumb.length-1],
+        link: crumb.join('/').replace(/^\/{2}/, '/') + '/',
+      });
+    }
+
+    return breadcrumb;
+  }
+
   function init(port) {
     app.set('view engine', 'pug');
 
@@ -50,9 +76,11 @@ module.exports = (port) => {
           return;
         }
 
+        const breadcrumb = getBreadcrumb(req.url);
         if (result.type === 'secrets') {
           res.render('entries', {
             entries: result.content,
+            breadcrumb,
             backLink: req.get('Referrer')
           });
 
@@ -61,26 +89,12 @@ module.exports = (port) => {
 
         if (result.type === 'directory') {
           let list = result.content;
-          // Remove table headers
-          const originalUrl = req.url.split('/').filter(el => { return el; });
-
-          if (originalUrl) {
-            let backLink = '';
-            if (originalUrl.length > 1) {
-              backLink = originalUrl;
-              backLink.pop();
-              backLink = backLink.join('/');
-            }
-
-            list.unshift({
-              name: 'BACK',
-              link: [req.baseUrl, backLink].join('/'),
-              class: 'back-button'
-            });
-          }
 
           // Render directories view
-          res.render('list', { list: list });
+          res.render('list', {
+            list,
+            breadcrumb
+          });
           return;
         }
       });
