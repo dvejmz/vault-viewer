@@ -1,6 +1,13 @@
 'use strict';
 
+const util = require('util');
 const cp = require('child_process');
+
+const options = {
+  token: '',
+};
+const vault = require('node-vault')(options);
+process.env.DEBUG = 'node-vault';
 
 module.exports = () => {
   const exec = cp.exec;
@@ -28,18 +35,16 @@ module.exports = () => {
     return path.replace(/^\/+/, '');
   }
 
-  function read(path) {
-    const cmd = `vault read -format json secret/${trimPath(path)}`; 
-    let stdout = null;
-
+  async function read(path) {
+    let value = null;
     try {
-      stdout = runCommandSync(cmd);
+      const res = await vault.read(`secret/${trimPath(path)}`);
+      return res.data;
     } catch (e) {
-        console.log('Failed to read secret on path: ', path, '. Error: ', e);
-        throw e;
+      console.log(e.toString());
     }
 
-    return JSON.parse(stdout).data;
+    return null;
   }
 
   function list(path) {
@@ -55,7 +60,7 @@ module.exports = () => {
     return JSON.parse(stdout);
   }
 
-  function get(path, cb) {
+  async function get(path) {
     let listOutput = list(path);
 
     if (listOutput) {
@@ -64,13 +69,10 @@ module.exports = () => {
           return { name: key, link: key };
         });
 
-      return cb(
-        null,
-        {
-          type: 'directory',
-          content: list
-        }
-      );
+      return {
+        type: 'directory',
+        content: list
+      };
     }
 
     // Try reading the path as a secret
@@ -81,19 +83,16 @@ module.exports = () => {
     if (!listOutput) {
       let readOutput = null;
       try {
-        readOutput = read(path);
+        readOutput = await read(path);
       } catch (e) {
-        return cb(e, null);
+        console.error(e.toString());
+        return null;
       }
 
-      // Render secrets view
-      return cb(
-        null,
-        {
-          type: 'secrets',
-          content: readOutput
-        }
-      );
+      return {
+        type: 'secrets',
+        content: readOutput,
+      };
     }
   }
 };

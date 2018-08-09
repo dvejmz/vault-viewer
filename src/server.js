@@ -67,37 +67,36 @@ module.exports = (port) => {
     });
 
     app.use(express.static('public'));
-    app.use(function (req, res) {
+    app.use(async function (req, res) {
       console.log(req.path);
 
-      vault.get(req.path, (err, result) => {
-        if (err) {
-          console.error(err.toString());
-          return;
-        }
+      const result = await vault.get(req.path);
+      if (!result) {
+        console.error('Failed to render view');
+        return;
+      }
 
-        const breadcrumb = getBreadcrumb(req.url);
-        if (result.type === 'secrets') {
-          res.render('entries', {
-            entries: result.content,
-            breadcrumb,
-            backLink: req.get('Referrer')
-          });
+      const breadcrumb = getBreadcrumb(req.url);
+      if (result.type === 'secrets') {
+        res.render('entries', {
+          entries: result.content,
+          breadcrumb,
+          backLink: req.get('Referrer')
+        });
 
-          return;
-        }
+        return;
+      }
 
-        if (result.type === 'directory') {
-          let list = result.content;
+      if (result.type === 'directory') {
+        let list = result.content;
 
-          // Render directories view
-          res.render('list', {
-            list,
-            breadcrumb
-          });
-          return;
-        }
-      });
+        // Render directories view
+        res.render('list', {
+          list,
+          breadcrumb
+        });
+        return;
+      }
     });
   }
 };
