@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const pug = require('pug');
 const vault = require('./vault')();
